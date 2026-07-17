@@ -118,8 +118,15 @@ export default function ApplicationForm() {
                     required
                   />
                 </div>
+                
+                {/* Compulsory Fields Requested */}
                 <div className="md:col-span-2">
-                  <InputGroup label="How much do you currently have to secure the property?" name="available_funds" placeholder="e.g. $4,000" required />
+                  <InputGroup 
+                    label="How much do you currently have to secure the property?" 
+                    name="available_funds" 
+                    placeholder="e.g. $4,000" 
+                    required 
+                  />
                 </div>
                 <div className="md:col-span-2">
                   <SelectGroup 
@@ -165,6 +172,7 @@ export default function ApplicationForm() {
                 />
                 <label htmlFor="terms" className="text-sm text-gray-600 leading-relaxed">
                   I confirm that all information provided is accurate and I agree to the terms & conditions. I understand that viewing of a property requires prior approval.
+                  <span className="text-red-500 ml-1">*</span>
                 </label>
               </div>
 
@@ -217,7 +225,9 @@ function SectionHeader({ title }: { title: string }) {
 function InputGroup({ label, name, placeholder, type = "text", required = false }: { label: string, name: string, placeholder?: string, type?: string, required?: boolean }) {
   return (
     <div className="flex flex-col">
-      <label className="block text-sm font-medium text-gray-700 mb-1.5">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
       <input 
         type={type} 
         name={name}
@@ -232,7 +242,9 @@ function InputGroup({ label, name, placeholder, type = "text", required = false 
 function SelectGroup({ label, name, defaultOption, options, required = false }: { label: string, name: string, defaultOption: string, options: string[], required?: boolean }) {
   return (
     <div className="flex flex-col">
-      <label className="block text-sm font-medium text-gray-700 mb-1.5">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
       <div className="relative">
         <select 
           name={name}
@@ -258,9 +270,12 @@ function SelectGroup({ label, name, defaultOption, options, required = false }: 
 }
 
 function RadioGroup({ label, name }: { label: string, name: string }) {
+  // Hardcoding required visual cue since the inputs inside are required
   return (
     <div className="flex flex-col">
-      <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 mb-2">
+        {label} <span className="text-red-500">*</span>
+      </label>
       <div className="flex items-center gap-6">
         <label className="flex items-center gap-2 cursor-pointer">
           <input type="radio" name={name} value="yes" required className="w-4 h-4 text-[#bf7140] border-gray-300 focus:ring-[#bf7140]" />
